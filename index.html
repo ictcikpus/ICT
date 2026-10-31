@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -27,524 +28,490 @@
   </script>
 
   <style>
-    /* Custom Animations & Utilities */
-    body { background-color: #0f172a; overflow: hidden; color: #f8fafc; }
+    /* Fixed 16:9 Presentation Styling */
+    body { background-color: #000; overflow: hidden; color: #f8fafc; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; font-size: 1.25rem; }
+    
+    #presentation-wrapper {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      transform-origin: center center;
+      background-color: #0f172a;
+      overflow: hidden;
+      box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    }
+
+    /* Slide Transitions (Horizontal Slide-in) */
     .slide {
       opacity: 0;
       visibility: hidden;
-      transform: scale(0.95) translateY(20px);
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(100px);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
       position: absolute;
       inset: 0;
       z-index: 10;
-      overflow-y: auto;
-      overflow-x: hidden;
     }
     .slide.active {
       opacity: 1;
       visibility: visible;
-      transform: scale(1) translateY(0);
+      transform: translateX(0);
       z-index: 20;
     }
-    /* Hide scrollbar for clean presentation look */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-    
-    /* Interactive Cards */
+
+    /* Staggered Element Animations */
+    .slide.active .stagger-1 { animation: fadeUp 0.6s ease-out 0.2s both; }
+    .slide.active .stagger-2 { animation: fadeUp 0.6s ease-out 0.4s both; }
+    .slide.active .stagger-3 { animation: fadeUp 0.6s ease-out 0.6s both; }
+    .slide.active .stagger-4 { animation: fadeUp 0.6s ease-out 0.8s both; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Interactive Elements */
     .hover-card { transition: all 0.3s ease; }
-    .hover-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(22, 160, 133, 0.4); border-color: #16A085; }
+    .hover-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px -5px rgba(22, 160, 133, 0.4); border-color: #16A085; }
     
-    /* Glassmorphism */
-    .glass { background: rgba(16, 36, 58, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
-    .glass-light { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+    .glass { background: rgba(16, 36, 58, 0.7); backdrop-filter: blur(15px); border: 2px solid rgba(255,255,255,0.1); }
+    .glass-light { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.1); }
+    
+    /* Hide Next button properly */
+    .btn-hidden { opacity: 0; pointer-events: none; }
   </style>
 </head>
 <body class="text-slate-200 antialiased font-sans selection:bg-brand-green selection:text-white">
 
-  <!-- Background Layer -->
-  <div class="fixed inset-0 z-0">
-    <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-brand-navy to-slate-900 opacity-90 z-10"></div>
-    <img src="https://img.magnific.com/premium-vector/abstract-futuristic-blue-digital-technology-background-with-network-connection-lines-glowing_41981-4291.jpg?semt=ais_hybrid&w=1920&q=80" class="w-full h-full object-cover opacity-30 mix-blend-screen" alt="Tech Background">
-  </div>
-
-  <!-- Main Presentation Container -->
-  <main id="presentation-area" class="relative w-full h-screen z-10 flex flex-col">
+  <!-- 16:9 Scale Wrapper -->
+  <div id="presentation-wrapper">
     
+    <!-- Background Layer -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-brand-navy to-black opacity-90 z-10"></div>
+      <img src="https://img.magnific.com/premium-vector/abstract-futuristic-blue-digital-technology-background-with-network-connection-lines-glowing_41981-4291.jpg?semt=ais_hybrid&w=1920&q=80" class="w-full h-full object-cover opacity-30 mix-blend-screen" alt="Tech Background">
+    </div>
+
     <!-- Header / Logo Area -->
-    <header class="absolute top-0 left-0 w-full p-6 lg:p-8 flex justify-between items-center z-50 pointer-events-none">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
-          <i class="fa-solid fa-school text-brand-green text-xl"></i>
+    <header class="absolute top-0 left-0 w-full p-12 flex justify-between items-center z-50 pointer-events-none stagger-1">
+      <div class="flex items-center gap-6">
+        <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center border-2 border-white/20">
+          <i class="fa-solid fa-school text-brand-green text-3xl"></i>
         </div>
         <div>
-          <h1 class="font-bold text-sm tracking-wider text-white">SMKN 1 CIKARANG PUSAT</h1>
-          <p class="text-xs text-brand-blue font-semibold">ICT MASTER PLAN 26/27</p>
+          <h1 class="font-extrabold text-2xl tracking-wider text-white">SMKN 1 CIKARANG PUSAT</h1>
+          <p class="text-xl text-brand-blue font-bold tracking-widest uppercase">ICT Master Plan 2026/2027</p>
         </div>
       </div>
     </header>
 
     <!-- SLIDE 1: COVER -->
     <section class="slide active" id="slide-1">
-      <div class="flex flex-col lg:flex-row h-full w-full">
-        <div class="flex-1 flex flex-col justify-center p-8 lg:p-24 pt-24 lg:pt-24 z-10">
-          <span class="inline-block py-1 px-3 rounded-full bg-brand-green/20 text-brand-green border border-brand-green/50 text-xs font-bold tracking-widest uppercase mb-6 w-max">
+      <div class="flex h-full w-full">
+        <div class="flex-1 flex flex-col justify-center p-24 z-10 pl-32">
+          <span class="stagger-1 inline-block py-2 px-6 rounded-full bg-brand-green/20 text-brand-green border-2 border-brand-green/50 text-xl font-bold tracking-widest uppercase mb-10 w-max">
             Tahun Pelajaran 2026/2027
           </span>
-          <h2 class="text-4xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
-            Transformasi <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-green">Digital</span> &<br>Laporan ICT
+          <h2 class="stagger-2 text-7xl font-extrabold text-white leading-[1.2] mb-8">
+            Transformasi <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-green">Digital</span><br>& Laporan Capaian ICT
           </h2>
-          <p class="text-lg lg:text-xl text-slate-300 mb-8 max-w-2xl leading-relaxed">
-            Membangun fondasi teknologi hari ini untuk mewujudkan layanan pendidikan digital masa depan yang terhubung, terintegrasi, dan inovatif.
+          <p class="stagger-3 text-3xl text-slate-300 mb-12 max-w-4xl leading-relaxed border-l-8 border-brand-blue pl-6">
+            Membangun fondasi teknologi hari ini untuk mewujudkan layanan pendidikan digital masa depan.
           </p>
-          <div class="flex flex-wrap gap-4">
-            <button onclick="nextSlide()" class="px-6 py-3 bg-brand-blue hover:bg-blue-600 transition-colors rounded-lg font-bold text-white shadow-lg shadow-blue-900/50 flex items-center gap-2">
+          <div class="stagger-4 flex gap-6">
+            <button onclick="nextSlide()" class="px-10 py-5 bg-brand-blue hover:bg-blue-600 transition-all rounded-xl font-bold text-2xl text-white shadow-[0_10px_30px_rgba(22,119,200,0.5)] flex items-center gap-4 hover:scale-105">
               Mulai Presentasi <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
         </div>
-        <div class="hidden lg:block w-5/12 relative overflow-hidden clip-path-polygon">
-          <div class="absolute inset-0 bg-brand-blue/20 mix-blend-multiply z-10"></div>
+        <div class="w-5/12 relative overflow-hidden clip-path-polygon stagger-2">
+          <div class="absolute inset-0 bg-brand-blue/30 mix-blend-multiply z-10"></div>
           <img src="https://onediversified.com/hubfs/1.28.25.jpeg" alt="School" class="w-full h-full object-cover">
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 2: VISI, MISI & STRATEGI -->
-    <section class="slide p-6 lg:p-24 pt-24" id="slide-2">
-      <div class="max-w-7xl mx-auto h-full flex flex-col">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-2">Visi & Arah Strategis</h2>
-        <p class="text-brand-green font-semibold mb-8">Pondasi Ekosistem Digital SMKN 1 Cikarang Pusat</p>
+    <!-- SLIDE 2: VISI & PILAR -->
+    <section class="slide" id="slide-2">
+      <div class="h-full flex flex-col pt-40 px-32">
+        <div class="stagger-1 mb-12">
+          <h2 class="text-6xl font-bold mb-4 text-white">Visi & Arah Strategis</h2>
+          <p class="text-3xl text-brand-green font-semibold">Fondasi Ekosistem Digital SMKN 1 Cikarang Pusat</p>
+        </div>
         
-        <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 flex-1">
-          <!-- Visi Misi -->
-          <div class="flex-1 glass p-8 rounded-2xl">
-            <h3 class="text-xl text-brand-blue font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-eye"></i> Visi ICT</h3>
-            <p class="text-slate-300 italic border-l-4 border-brand-green pl-4 mb-8 text-lg">
-              "Mewujudkan ekosistem TIK yang terintegrasi, andal, aman, inovatif, dan berkelanjutan dalam mendukung mutu pendidikan."
-            </p>
-            
-            <h3 class="text-xl text-brand-blue font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-bullseye"></i> Misi Utama</h3>
-            <ul class="space-y-4 text-slate-300">
-              <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check text-brand-green mt-1"></i> Infrastruktur jaringan internet yang andal & merata.</li>
-              <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check text-brand-green mt-1"></i> Pengembangan sistem administrasi digital terintegrasi.</li>
-              <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check text-brand-green mt-1"></i> Peningkatan efektivitas kelola data & layanan sekolah.</li>
-              <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check text-brand-green mt-1"></i> Tata kelola keamanan infrastruktur berkelanjutan.</li>
-              <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check text-brand-green mt-1"></i> Peningkatan literasi digital warga sekolah.</li>
+        <div class="flex gap-12 flex-1 pb-24">
+          <!-- Visi -->
+          <div class="flex-1 glass p-12 rounded-3xl stagger-2 flex flex-col justify-center">
+            <h3 class="text-4xl text-brand-blue font-bold mb-8 flex items-center gap-4"><i class="fa-solid fa-bullseye text-5xl"></i> Misi Utama ICT</h3>
+            <ul class="space-y-8 text-slate-200 text-2xl">
+              <li class="flex items-start gap-5"><i class="fa-solid fa-wifi text-brand-green mt-2 text-3xl w-10"></i> <span>Membangun <b>Jaringan Internet</b> andal & merata.</span></li>
+              <li class="flex items-start gap-5"><i class="fa-solid fa-desktop text-brand-green mt-2 text-3xl w-10"></i> <span>Mengembangkan <b>Administrasi Digital</b> terintegrasi.</span></li>
+              <li class="flex items-start gap-5"><i class="fa-solid fa-database text-brand-green mt-2 text-3xl w-10"></i> <span>Meningkatkan kelola <b>Data & Layanan</b> sekolah.</span></li>
+              <li class="flex items-start gap-5"><i class="fa-solid fa-shield-halved text-brand-green mt-2 text-3xl w-10"></i> <span>Menjamin <b>Keamanan & Tata Kelola</b> infrastruktur.</span></li>
             </ul>
           </div>
           
           <!-- 4 Pilar -->
-          <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="glass-light p-6 rounded-2xl hover-card border border-slate-700">
-              <div class="w-12 h-12 rounded-full bg-brand-blue/20 flex items-center justify-center text-brand-blue mb-4 text-2xl"><i class="fa-solid fa-network-wired"></i></div>
-              <h4 class="font-bold text-lg mb-2">Infrastructure</h4>
-              <p class="text-sm text-slate-400">Pembangunan jaringan dan konektivitas sekolah yang cepat dan merata.</p>
+          <div class="w-1/2 grid grid-cols-2 gap-8 stagger-3">
+            <div class="glass-light p-10 rounded-3xl hover-card border-slate-600 flex flex-col justify-center">
+              <i class="fa-solid fa-network-wired text-brand-blue text-6xl mb-6"></i>
+              <h4 class="font-bold text-3xl mb-3 text-white">Infrastructure</h4>
+              <p class="text-xl text-slate-400">Jaringan cepat & merata.</p>
             </div>
-            <div class="glass-light p-6 rounded-2xl hover-card border border-slate-700">
-              <div class="w-12 h-12 rounded-full bg-brand-green/20 flex items-center justify-center text-brand-green mb-4 text-2xl"><i class="fa-solid fa-layer-group"></i></div>
-              <h4 class="font-bold text-lg mb-2">Integration</h4>
-              <p class="text-sm text-slate-400">Sistem informasi dan layanan administrasi yang saling terhubung.</p>
+            <div class="glass-light p-10 rounded-3xl hover-card border-slate-600 flex flex-col justify-center">
+              <i class="fa-solid fa-layer-group text-brand-green text-6xl mb-6"></i>
+              <h4 class="font-bold text-3xl mb-3 text-white">Integration</h4>
+              <p class="text-xl text-slate-400">Sistem saling terhubung.</p>
             </div>
-            <div class="glass-light p-6 rounded-2xl hover-card border border-slate-700">
-              <div class="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 mb-4 text-2xl"><i class="fa-solid fa-shield-halved"></i></div>
-              <h4 class="font-bold text-lg mb-2">Security</h4>
-              <p class="text-sm text-slate-400">Keamanan data, tata kelola ICT, dan backup sistem yang andal.</p>
+            <div class="glass-light p-10 rounded-3xl hover-card border-slate-600 flex flex-col justify-center">
+              <i class="fa-solid fa-lock text-orange-400 text-6xl mb-6"></i>
+              <h4 class="font-bold text-3xl mb-3 text-white">Security</h4>
+              <p class="text-xl text-slate-400">Keamanan data & sistem.</p>
             </div>
-            <div class="glass-light p-6 rounded-2xl hover-card border border-slate-700">
-              <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 mb-4 text-2xl"><i class="fa-solid fa-users-gear"></i></div>
-              <h4 class="font-bold text-lg mb-2">Empowerment</h4>
-              <p class="text-sm text-slate-400">Pemberdayaan SDM, pelatihan, dan literasi digital berkelanjutan.</p>
+            <div class="glass-light p-10 rounded-3xl hover-card border-slate-600 flex flex-col justify-center">
+              <i class="fa-solid fa-users-gear text-purple-400 text-6xl mb-6"></i>
+              <h4 class="font-bold text-3xl mb-3 text-white">Empowerment</h4>
+              <p class="text-xl text-slate-400">Literasi & kompetensi SDM.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 3: CAPAIAN & EVALUASI (Interactive Tabs) -->
-    <section class="slide p-6 lg:p-24 pt-24" id="slide-3">
-      <div class="max-w-7xl mx-auto h-full flex flex-col">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
+    <!-- SLIDE 3: EVALUASI (Interactive) -->
+    <section class="slide" id="slide-3">
+      <div class="h-full flex flex-col pt-40 px-32">
+        <div class="stagger-1 flex justify-between items-end mb-12">
           <div>
-            <h2 class="text-3xl lg:text-4xl font-bold mb-2">Evaluasi & Transisi</h2>
-            <p class="text-slate-400">Dari Infrastruktur Awal Menuju Layanan Terintegrasi</p>
+            <h2 class="text-6xl font-bold mb-4 text-white">Realisasi & Transisi</h2>
+            <p class="text-3xl text-slate-400">Fondasi 25/26 menuju Kebutuhan 26/27</p>
           </div>
           <!-- Tabs Navigation -->
-          <div class="flex p-1 bg-white/10 rounded-lg backdrop-blur-sm w-full md:w-auto">
-            <button onclick="switchTab('tab-capaian')" id="btn-tab-capaian" class="flex-1 md:flex-none px-4 py-2 rounded-md bg-brand-blue text-white font-semibold text-sm transition-all">Realisasi 25/26</button>
-            <button onclick="switchTab('tab-evaluasi')" id="btn-tab-evaluasi" class="flex-1 md:flex-none px-4 py-2 rounded-md text-slate-300 hover:text-white font-semibold text-sm transition-all">Evaluasi & Kebutuhan</button>
-            <button onclick="switchTab('tab-organisasi')" id="btn-tab-organisasi" class="flex-1 md:flex-none px-4 py-2 rounded-md text-slate-300 hover:text-white font-semibold text-sm transition-all">Tim Kerja</button>
+          <div class="flex p-2 bg-white/10 rounded-2xl backdrop-blur-md gap-2">
+            <button onclick="switchTab('tab-capaian')" id="btn-tab-capaian" class="px-8 py-4 rounded-xl bg-brand-blue text-white font-bold text-xl transition-all shadow-lg">Capaian 25/26</button>
+            <button onclick="switchTab('tab-evaluasi')" id="btn-tab-evaluasi" class="px-8 py-4 rounded-xl text-slate-300 hover:text-white font-bold text-xl transition-all">Target 26/27</button>
+            <button onclick="switchTab('tab-organisasi')" id="btn-tab-organisasi" class="px-8 py-4 rounded-xl text-slate-300 hover:text-white font-bold text-xl transition-all">Tim Kerja ICT</button>
           </div>
         </div>
 
-        <!-- Tab 1: Realisasi -->
-        <div id="tab-capaian" class="tab-content flex-1 flex flex-col animation-fade">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <div class="glass p-8 rounded-2xl text-center flex flex-col justify-center border-t-4 border-t-brand-blue">
-              <h3 class="text-5xl font-extrabold text-white mb-2">200<span class="text-2xl text-brand-blue"> Mbps</span></h3>
-              <p class="font-bold text-lg">Konektivitas Internet</p>
-              <p class="text-sm text-slate-400 mt-2">Bandwidth aktif mendukung operasional utama.</p>
+        <!-- Content Area -->
+        <div class="flex-1 relative stagger-2 pb-24">
+          <!-- Tab 1: Realisasi -->
+          <div id="tab-capaian" class="tab-content absolute inset-0 flex flex-col">
+            <div class="grid grid-cols-3 gap-10 mb-10 h-2/3">
+              <div class="glass p-12 rounded-3xl text-center flex flex-col items-center justify-center border-t-8 border-t-brand-blue">
+                <i class="fa-solid fa-gauge-high text-7xl text-brand-blue mb-6"></i>
+                <h3 class="text-8xl font-extrabold text-white mb-4">200<span class="text-4xl text-brand-blue"> Mbps</span></h3>
+                <p class="font-bold text-3xl">Koneksi Internet</p>
+              </div>
+              <div class="glass p-12 rounded-3xl text-center flex flex-col items-center justify-center border-t-8 border-t-brand-green">
+                <i class="fa-solid fa-map-location-dot text-7xl text-brand-green mb-6"></i>
+                <h3 class="text-8xl font-extrabold text-white mb-4">5<span class="text-4xl text-brand-green"> Area</span></h3>
+                <p class="font-bold text-3xl">Instalasi Aktif</p>
+                <p class="text-xl text-slate-400 mt-4">(TU, Guru, TKRO, TEI, TP)</p>
+              </div>
+              <div class="glass p-12 rounded-3xl text-center flex flex-col items-center justify-center border-t-8 border-t-purple-400">
+                <i class="fa-solid fa-globe text-7xl text-purple-400 mb-6"></i>
+                <h3 class="text-6xl font-extrabold text-white mb-4">Website</h3>
+                <p class="font-bold text-3xl">Layanan Digital Dasar</p>
+              </div>
             </div>
-            <div class="glass p-8 rounded-2xl text-center flex flex-col justify-center border-t-4 border-t-brand-green">
-              <h3 class="text-5xl font-extrabold text-white mb-2">5<span class="text-2xl text-brand-green"> Area</span></h3>
-              <p class="font-bold text-lg">Instalasi Jaringan Aktif</p>
-              <p class="text-sm text-slate-400 mt-2">TU, Ruang Guru, RPS TKRO, TEI, & TP.</p>
-            </div>
-            <div class="glass p-8 rounded-2xl text-center flex flex-col justify-center border-t-4 border-t-slate-400">
-              <div class="text-5xl text-white mb-2"><i class="fa-solid fa-globe"></i></div>
-              <p class="font-bold text-lg">Website & Server</p>
-              <p class="text-sm text-slate-400 mt-2">Dukungan operasional digitalisasi dasar.</p>
+            <div class="glass-light rounded-3xl flex-1 flex items-center justify-center text-center p-8">
+              <p class="text-3xl italic text-slate-300">"Pembangunan ini adalah fondasi awal menuju layanan terintegrasi."</p>
             </div>
           </div>
-          <div class="glass p-6 rounded-2xl flex-1 flex items-center justify-center text-center">
-            <p class="text-lg italic text-slate-300 max-w-3xl">
-              "Pembangunan jaringan internet dan dukungan website pada Tahun 2025/2026 telah menjadi fondasi awal pengembangan layanan ICT yang lebih luas untuk dioptimalkan tahun ini."
-            </p>
-          </div>
-        </div>
 
-        <!-- Tab 2: Evaluasi -->
-        <div id="tab-evaluasi" class="tab-content flex-1 hidden animation-fade">
-          <div class="flex flex-col md:flex-row gap-6 h-full">
-            <div class="flex-1 glass border border-slate-700 rounded-2xl p-8 relative overflow-hidden">
-              <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl"><i class="fa-solid fa-building"></i></div>
-              <h3 class="text-xl font-bold text-slate-300 mb-6 uppercase tracking-wider border-b border-slate-700 pb-4">Status Saat Ini (25/26)</h3>
-              <ul class="space-y-4">
-                <li class="flex gap-3"><i class="fa-solid fa-minus text-slate-500 mt-1"></i> Jaringan fokus pada 5 area prioritas.</li>
-                <li class="flex gap-3"><i class="fa-solid fa-minus text-slate-500 mt-1"></i> Layanan website masih bersifat informatif dasar.</li>
-                <li class="flex gap-3"><i class="fa-solid fa-minus text-slate-500 mt-1"></i> Absensi dan administrasi mayoritas manual.</li>
-                <li class="flex gap-3"><i class="fa-solid fa-minus text-slate-500 mt-1"></i> Belum ada sistem manajemen bandwidth terpusat.</li>
-              </ul>
-            </div>
-            <div class="flex items-center justify-center text-3xl text-brand-blue">
-              <i class="fa-solid fa-arrow-right hidden md:block"></i>
-              <i class="fa-solid fa-arrow-down block md:hidden"></i>
-            </div>
-            <div class="flex-1 bg-gradient-to-br from-brand-blue/20 to-brand-green/20 border border-brand-green/50 rounded-2xl p-8 relative overflow-hidden">
-              <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl"><i class="fa-solid fa-rocket"></i></div>
-              <h3 class="text-xl font-bold text-white mb-6 uppercase tracking-wider border-b border-white/20 pb-4">Kebutuhan 2026/2027</h3>
-              <ul class="space-y-4 text-white font-medium">
-                <li class="flex gap-3"><i class="fa-solid fa-check text-brand-green mt-1"></i> Perluasan jaringan menyeluruh & bandwidth management.</li>
-                <li class="flex gap-3"><i class="fa-solid fa-check text-brand-green mt-1"></i> Implementasi Absensi Digital terpusat.</li>
-                <li class="flex gap-3"><i class="fa-solid fa-check text-brand-green mt-1"></i> Digitalisasi layanan persuratan dan inventaris.</li>
-                <li class="flex gap-3"><i class="fa-solid fa-check text-brand-green mt-1"></i> Proteksi keamanan siber & backup terjadwal.</li>
-              </ul>
+          <!-- Tab 2: Evaluasi -->
+          <div id="tab-evaluasi" class="tab-content absolute inset-0 hidden">
+            <div class="flex gap-10 h-full">
+              <div class="flex-1 glass border border-slate-600 rounded-3xl p-12 relative overflow-hidden flex flex-col justify-center">
+                <h3 class="text-4xl font-bold text-slate-300 mb-10 border-b-2 border-slate-600 pb-6 uppercase">Saat Ini (25/26)</h3>
+                <ul class="space-y-8 text-2xl text-slate-400 font-medium">
+                  <li class="flex gap-5"><i class="fa-solid fa-xmark text-red-400 mt-1 text-3xl"></i> Cakupan jaringan belum menyeluruh.</li>
+                  <li class="flex gap-5"><i class="fa-solid fa-xmark text-red-400 mt-1 text-3xl"></i> Layanan hanya bersifat informatif.</li>
+                  <li class="flex gap-5"><i class="fa-solid fa-xmark text-red-400 mt-1 text-3xl"></i> Absensi & administrasi masih manual.</li>
+                </ul>
+              </div>
+              <div class="flex items-center justify-center text-7xl text-brand-blue"><i class="fa-solid fa-arrow-right-long"></i></div>
+              <div class="flex-1 bg-gradient-to-br from-brand-blue/30 to-brand-green/30 border-2 border-brand-green rounded-3xl p-12 relative overflow-hidden flex flex-col justify-center">
+                <h3 class="text-4xl font-bold text-white mb-10 border-b-2 border-white/30 pb-6 uppercase tracking-wider">Kebutuhan Mendesak (26/27)</h3>
+                <ul class="space-y-8 text-2xl text-white font-bold">
+                  <li class="flex gap-5"><i class="fa-solid fa-check-double text-brand-green mt-1 text-3xl"></i> Perluasan Jaringan & Kelola Bandwidth.</li>
+                  <li class="flex gap-5"><i class="fa-solid fa-check-double text-brand-green mt-1 text-3xl"></i> Sistem Absensi Digital Terpusat.</li>
+                  <li class="flex gap-5"><i class="fa-solid fa-check-double text-brand-green mt-1 text-3xl"></i> Digitalisasi Persuratan & Inventaris.</li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Tab 3: Organisasi -->
-        <div id="tab-organisasi" class="tab-content flex-1 hidden animation-fade">
-          <div class="h-full flex flex-col items-center justify-center max-w-2xl mx-auto w-full">
-            <div class="w-full bg-brand-navy border border-brand-blue rounded-xl p-4 text-center relative z-10 hover-card">
-              <p class="text-xs text-brand-green font-bold uppercase tracking-widest mb-1">Kepala Sekolah</p>
-              <h4 class="font-bold text-lg text-white">Nopriandi, S.Kom., S.T., M.M.</h4>
-              <p class="text-xs text-slate-400">Pengambil Keputusan Strategis</p>
-            </div>
-            <div class="h-8 w-px bg-brand-blue"></div>
-            <div class="w-full md:w-10/12 bg-white/10 backdrop-blur-md border border-slate-600 rounded-xl p-4 text-center relative z-10 hover-card">
-              <p class="text-xs text-brand-blue font-bold uppercase tracking-widest mb-1">Kepala ICT</p>
-              <h4 class="font-bold text-lg text-white">HAPIJU, S.Pd., M.M.</h4>
-              <p class="text-xs text-slate-400">Perencanaan, Koordinasi & Evaluasi</p>
-            </div>
-            <div class="h-8 w-px bg-brand-blue"></div>
-            <div class="w-full md:w-8/12 bg-white/5 backdrop-blur-md border border-slate-700 rounded-xl p-4 text-center relative z-10 hover-card">
-              <p class="text-xs text-brand-blue font-bold uppercase tracking-widest mb-1">Staff ICT</p>
-              <h4 class="font-bold text-lg text-white">Otib Subagja, S.Kom.</h4>
-              <p class="text-xs text-slate-400">Instalasi, Konfigurasi & Support Teknis</p>
-            </div>
-            <div class="h-8 w-px bg-brand-green/50"></div>
-            <div class="w-full md:w-6/12 bg-transparent border border-brand-green border-dashed rounded-xl p-3 text-center hover-card">
-              <h4 class="font-bold text-sm text-brand-green">Anggota Ekskul Komputer</h4>
-              <p class="text-xs text-slate-400">Support Pembelajaran (Supervisi)</p>
+          <!-- Tab 3: Organisasi -->
+          <div id="tab-organisasi" class="tab-content absolute inset-0 hidden">
+            <div class="h-full flex flex-col items-center justify-center max-w-5xl mx-auto space-y-6">
+              <div class="w-full bg-brand-navy border-2 border-brand-blue rounded-2xl p-8 text-center shadow-xl">
+                <p class="text-xl text-brand-green font-bold uppercase tracking-widest mb-2">Kepala Sekolah</p>
+                <h4 class="font-extrabold text-4xl text-white">Nopriandi, S.Kom., S.T., M.M.</h4>
+              </div>
+              <div class="h-10 w-1 bg-brand-blue"></div>
+              <div class="w-10/12 bg-white/10 backdrop-blur-md border border-slate-500 rounded-2xl p-6 text-center">
+                <p class="text-lg text-brand-blue font-bold uppercase tracking-widest mb-2">Kepala ICT</p>
+                <h4 class="font-bold text-3xl text-white">HAPIJU, S.Pd., M.M.</h4>
+              </div>
+              <div class="h-10 w-1 bg-brand-blue"></div>
+              <div class="w-8/12 bg-white/5 backdrop-blur-md border border-slate-600 rounded-2xl p-6 text-center">
+                <p class="text-lg text-brand-blue font-bold uppercase tracking-widest mb-2">Staff ICT</p>
+                <h4 class="font-bold text-3xl text-white">Otib Subagja, S.Kom.</h4>
+              </div>
+              <div class="h-10 w-1 bg-brand-green/50"></div>
+              <div class="w-6/12 bg-transparent border-2 border-brand-green border-dashed rounded-2xl p-4 text-center">
+                <h4 class="font-bold text-2xl text-brand-green">Ekskul Komputer</h4>
+                <p class="text-lg text-slate-400">Tim Dukungan (Supervisi)</p>
+              </div>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- SLIDE 4: PROGRAM PRIORITAS & EKOSISTEM -->
-    <section class="slide p-6 lg:p-24 pt-24" id="slide-4">
-      <div class="max-w-7xl mx-auto h-full flex flex-col">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-2">Program & Ekosistem Digital</h2>
-        <p class="text-slate-400 mb-6">4 Rencana Prioritas membentuk satu ekosistem yang terintegrasi.</p>
+    <!-- SLIDE 4: PROGRAM PRIORITAS -->
+    <section class="slide" id="slide-4">
+      <div class="h-full flex flex-col pt-40 px-32 pb-24">
+        <div class="stagger-1 mb-10">
+          <h2 class="text-6xl font-bold mb-4 text-white">4 Program Prioritas</h2>
+          <p class="text-3xl text-slate-400">Membentuk ekosistem digital yang terintegrasi (Klik kartu di bawah)</p>
+        </div>
 
         <!-- 4 Programs -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 z-20">
-          <div class="glass-light p-4 rounded-xl hover-card cursor-pointer border-t-2 border-t-brand-blue" onclick="highlightEcosystem('absensi')">
-            <i class="fa-solid fa-id-card text-brand-blue text-2xl mb-2"></i>
-            <h4 class="font-bold text-sm mb-1">Digital Attendance</h4>
-            <p class="text-xs text-slate-400">Absensi guru, tendik, dan siswa.</p>
+        <div class="grid grid-cols-4 gap-8 mb-10 stagger-2">
+          <div class="glass-light p-8 rounded-2xl hover-card cursor-pointer border-t-4 border-t-brand-blue flex flex-col items-center text-center" onclick="highlightEcosystem('absensi')">
+            <i class="fa-solid fa-id-card text-brand-blue text-5xl mb-4"></i>
+            <h4 class="font-bold text-2xl mb-2 text-white">Digital Attendance</h4>
+            <p class="text-lg text-slate-400 leading-snug">Absensi Guru, Tendik & Siswa.</p>
           </div>
-          <div class="glass-light p-4 rounded-xl hover-card cursor-pointer border-t-2 border-t-brand-green" onclick="highlightEcosystem('admin')">
-            <i class="fa-solid fa-file-signature text-brand-green text-2xl mb-2"></i>
-            <h4 class="font-bold text-sm mb-1">School Admin</h4>
-            <p class="text-xs text-slate-400">E-surat, arsip, & inventaris.</p>
+          <div class="glass-light p-8 rounded-2xl hover-card cursor-pointer border-t-4 border-t-brand-green flex flex-col items-center text-center" onclick="highlightEcosystem('admin')">
+            <i class="fa-solid fa-file-signature text-brand-green text-5xl mb-4"></i>
+            <h4 class="font-bold text-2xl mb-2 text-white">School Admin</h4>
+            <p class="text-lg text-slate-400 leading-snug">E-Surat, Arsip & Inventaris.</p>
           </div>
-          <div class="glass-light p-4 rounded-xl hover-card cursor-pointer border-t-2 border-t-orange-400" onclick="highlightEcosystem('network')">
-            <i class="fa-solid fa-wifi text-orange-400 text-2xl mb-2"></i>
-            <h4 class="font-bold text-sm mb-1">Network Expansion</h4>
-            <p class="text-xs text-slate-400">Perluasan area WiFi & LAN.</p>
+          <div class="glass-light p-8 rounded-2xl hover-card cursor-pointer border-t-4 border-t-orange-400 flex flex-col items-center text-center" onclick="highlightEcosystem('network')">
+            <i class="fa-solid fa-wifi text-orange-400 text-5xl mb-4"></i>
+            <h4 class="font-bold text-2xl mb-2 text-white">Network Expand</h4>
+            <p class="text-lg text-slate-400 leading-snug">Perluasan area WiFi & LAN.</p>
           </div>
-          <div class="glass-light p-4 rounded-xl hover-card cursor-pointer border-t-2 border-t-purple-400" onclick="highlightEcosystem('all')">
-            <i class="fa-solid fa-sitemap text-purple-400 text-2xl mb-2"></i>
-            <h4 class="font-bold text-sm mb-1">Integrated Hub</h4>
-            <p class="text-xs text-slate-400">Satu portal untuk semua layanan.</p>
+          <div class="glass-light p-8 rounded-2xl hover-card cursor-pointer border-t-4 border-t-purple-400 flex flex-col items-center text-center" onclick="highlightEcosystem('all')">
+            <i class="fa-solid fa-sitemap text-purple-400 text-5xl mb-4"></i>
+            <h4 class="font-bold text-2xl mb-2 text-white">Integrated Hub</h4>
+            <p class="text-lg text-slate-400 leading-snug">Satu portal semua layanan.</p>
           </div>
         </div>
 
-        <!-- Ecosystem Map -->
-        <div class="flex-1 glass rounded-3xl relative overflow-hidden flex items-center justify-center p-4">
-          <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-blue via-transparent to-transparent"></div>
+        <!-- Ecosystem Map Simulator -->
+        <div class="flex-1 glass rounded-3xl relative overflow-hidden flex items-center justify-center p-8 stagger-3">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-blue/20 via-transparent to-transparent"></div>
           
-          <div class="relative w-full max-w-4xl aspect-video md:aspect-auto md:h-full flex items-center justify-between z-10">
+          <div class="relative w-full h-full flex items-center justify-between z-10 px-12">
             <!-- Left Entities -->
-            <div class="flex flex-col justify-around h-full py-4 space-y-2">
-              <div class="eco-item absensi admin bg-white/5 border border-slate-700 p-2 md:p-3 rounded-lg flex items-center gap-3 transition-colors">
-                <i class="fa-solid fa-users text-brand-blue"></i> <span class="hidden md:block text-sm font-semibold">1. Tata Usaha</span>
-              </div>
-              <div class="eco-item admin bg-white/5 border border-slate-700 p-2 md:p-3 rounded-lg flex items-center gap-3 transition-colors">
-                <i class="fa-solid fa-book-open text-brand-green"></i> <span class="hidden md:block text-sm font-semibold">2. Kurikulum</span>
-              </div>
-              <div class="eco-item absensi bg-white/5 border border-slate-700 p-2 md:p-3 rounded-lg flex items-center gap-3 transition-colors">
-                <i class="fa-solid fa-user-graduate text-orange-400"></i> <span class="hidden md:block text-sm font-semibold">3. Kesiswaan</span>
-              </div>
-              <div class="eco-item admin bg-white/5 border border-slate-700 p-2 md:p-3 rounded-lg flex items-center gap-3 transition-colors">
-                <i class="fa-solid fa-boxes-stacked text-purple-400"></i> <span class="hidden md:block text-sm font-semibold">4. Sarpras</span>
-              </div>
-              <div class="eco-item admin bg-white/5 border border-slate-700 p-2 md:p-3 rounded-lg flex items-center gap-3 transition-colors">
-                <i class="fa-solid fa-swatchbook text-pink-400"></i> <span class="hidden md:block text-sm font-semibold">5. Perpustakaan</span>
-              </div>
+            <div class="flex flex-col justify-between h-full py-4 w-1/4">
+              <div class="eco-item absensi admin bg-slate-800/80 border-2 border-slate-600 p-4 rounded-xl flex items-center gap-4 transition-all text-2xl"><i class="fa-solid fa-users text-brand-blue w-8"></i> <span class="font-bold">1. Tata Usaha</span></div>
+              <div class="eco-item admin bg-slate-800/80 border-2 border-slate-600 p-4 rounded-xl flex items-center gap-4 transition-all text-2xl"><i class="fa-solid fa-book-open text-brand-green w-8"></i> <span class="font-bold">2. Kurikulum</span></div>
+              <div class="eco-item absensi bg-slate-800/80 border-2 border-slate-600 p-4 rounded-xl flex items-center gap-4 transition-all text-2xl"><i class="fa-solid fa-user-graduate text-orange-400 w-8"></i> <span class="font-bold">3. Kesiswaan</span></div>
+              <div class="eco-item admin bg-slate-800/80 border-2 border-slate-600 p-4 rounded-xl flex items-center gap-4 transition-all text-2xl"><i class="fa-solid fa-boxes-stacked text-purple-400 w-8"></i> <span class="font-bold">4. Sarpras</span></div>
             </div>
 
             <!-- Central Hub -->
-            <div class="relative group">
-              <div class="absolute inset-0 bg-brand-blue blur-xl opacity-30 group-hover:opacity-60 transition-opacity rounded-full"></div>
-              <div class="w-24 h-24 md:w-40 md:h-40 rounded-full bg-brand-navy border-4 border-brand-blue flex flex-col items-center justify-center relative z-20 shadow-2xl shadow-brand-blue/50">
-                <i class="fa-solid fa-server text-2xl md:text-4xl text-brand-green mb-1 md:mb-2 animate-pulse"></i>
-                <span class="text-[10px] md:text-xs font-bold text-center leading-tight">CENTRAL<br>ECOSYSTEM</span>
-              </div>
-              <!-- Connector Lines SVG -->
-              <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[400px] pointer-events-none -z-10" style="opacity: 0.2;">
-                <!-- Concept only: Lines connecting hub to sides -->
-                <line x1="10%" y1="20%" x2="50%" y2="50%" stroke="#1677C8" stroke-width="2"/>
-                <line x1="10%" y1="50%" x2="50%" y2="50%" stroke="#1677C8" stroke-width="2"/>
-                <line x1="10%" y1="80%" x2="50%" y2="50%" stroke="#1677C8" stroke-width="2"/>
-                <line x1="90%" y1="20%" x2="50%" y2="50%" stroke="#1677C8" stroke-width="2"/>
-                <line x1="90%" y1="50%" x2="50%" y2="50%" stroke="#1677C8" stroke-width="2"/>
-                <line x1="90%" y1="80%" x2="50%" y2="50%" stroke="#1677C8" stroke-width="2"/>
-              </svg>
+            <div class="w-64 h-64 rounded-full bg-brand-navy border-8 border-brand-blue flex flex-col items-center justify-center relative z-20 shadow-[0_0_50px_#1677C8] pulse-anim">
+              <i class="fa-solid fa-server text-6xl text-brand-green mb-4"></i>
+              <span class="text-xl font-extrabold text-center leading-tight tracking-widest text-white">CENTRAL<br>DATA</span>
             </div>
 
             <!-- Right Entities -->
-            <div class="flex flex-col justify-around h-full py-4 space-y-2 text-right">
-              <div class="eco-item absensi admin bg-white/5 border border-slate-700 p-2 md:p-3 rounded-lg flex items-center justify-end gap-3 transition-colors">
-                <span class="hidden md:block text-sm font-semibold">6. Guru</span> <i class="fa-solid fa-chalkboard-user text-brand-blue"></i>
-              </div>
-              <div class="eco-item absensi bg-white/5 border border-slate-700 p-2 md:p-3 rounded-lg flex items-center justify-end gap-3 transition-colors">
-                <span class="hidden md:block text-sm font-semibold">7. Siswa</span> <i class="fa-solid fa-laptop-code text-brand-green"></i>
-              </div>
-              <div class="eco-item bg-white/5 border border-slate-700 p-2 md:p-3 rounded-lg flex items-center justify-end gap-3 transition-colors">
-                <span class="hidden md:block text-sm font-semibold">8. Hubin/BKK</span> <i class="fa-solid fa-handshake text-orange-400"></i>
-              </div>
-              <div class="eco-item admin bg-white/5 border border-slate-700 p-2 md:p-3 rounded-lg flex items-center justify-end gap-3 transition-colors">
-                <span class="hidden md:block text-sm font-semibold">9. Kepsek</span> <i class="fa-solid fa-user-tie text-purple-400"></i>
-              </div>
-              <div class="eco-item network bg-white/5 border border-slate-700 p-2 md:p-3 rounded-lg flex items-center justify-end gap-3 transition-colors border-brand-green/50">
-                <span class="hidden md:block text-sm font-semibold text-brand-green">10. ICT Team</span> <i class="fa-solid fa-headset text-brand-green"></i>
-              </div>
+            <div class="flex flex-col justify-between h-full py-4 w-1/4 text-right">
+              <div class="eco-item absensi admin bg-slate-800/80 border-2 border-slate-600 p-4 rounded-xl flex items-center justify-end gap-4 transition-all text-2xl"><span class="font-bold">5. Guru</span> <i class="fa-solid fa-chalkboard-user text-brand-blue w-8"></i></div>
+              <div class="eco-item absensi bg-slate-800/80 border-2 border-slate-600 p-4 rounded-xl flex items-center justify-end gap-4 transition-all text-2xl"><span class="font-bold">6. Siswa</span> <i class="fa-solid fa-laptop-code text-brand-green w-8"></i></div>
+              <div class="eco-item admin bg-slate-800/80 border-2 border-slate-600 p-4 rounded-xl flex items-center justify-end gap-4 transition-all text-2xl"><span class="font-bold">7. Kepsek</span> <i class="fa-solid fa-user-tie text-orange-400 w-8"></i></div>
+              <div class="eco-item network bg-slate-800/80 border-2 border-brand-green p-4 rounded-xl flex items-center justify-end gap-4 transition-all text-2xl text-brand-green"><span class="font-bold">8. ICT Team</span> <i class="fa-solid fa-headset w-8"></i></div>
             </div>
-          </div>
-          
-          <div class="absolute bottom-4 left-0 right-0 text-center text-xs text-slate-500 italic pointer-events-none">
-            *Klik kartu program di atas untuk melihat unit yang terhubung.
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 5: ROADMAP & TATA KELOLA -->
-    <section class="slide p-6 lg:p-24 pt-24" id="slide-5">
-      <div class="max-w-7xl mx-auto h-full flex flex-col">
-        
-        <h2 class="text-3xl lg:text-4xl font-bold mb-6">Tata Kelola & Roadmap 26/27</h2>
-        
-        <!-- 3 Pillars of Governance -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div class="glass-light p-5 rounded-xl border-t-2 border-t-brand-blue">
-            <h4 class="font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-tower-cell text-brand-blue"></i> Infrastruktur</h4>
-            <p class="text-xs text-slate-400">Pemetaan, perluasan LAN/WiFi, manajemen bandwidth, dan maintenance rutin.</p>
-          </div>
-          <div class="glass-light p-5 rounded-xl border-t-2 border-t-orange-400">
-            <h4 class="font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-lock text-orange-400"></i> Keamanan Data</h4>
-            <p class="text-xs text-slate-400">Segmentasi jaringan, backup berkala, pelindungan privasi, dan SOP gangguan.</p>
-          </div>
-          <div class="glass-light p-5 rounded-xl border-t-2 border-t-brand-green">
-            <h4 class="font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-user-graduate text-brand-green"></i> SDM Digital</h4>
-            <p class="text-xs text-slate-400">Pelatihan user, helpdesk teknis, pembinaan staf, dan kolaborasi ekskul.</p>
-          </div>
+    <!-- SLIDE 5: ROADMAP -->
+    <section class="slide" id="slide-5">
+      <div class="h-full flex flex-col pt-40 px-32 pb-24">
+        <div class="stagger-1 mb-12">
+          <h2 class="text-6xl font-bold mb-4 text-white">Roadmap Implementasi</h2>
+          <p class="text-3xl text-slate-400">Perencanaan bertahap Tahun Pelajaran 2026/2027</p>
         </div>
 
-        <!-- Interactive Timeline -->
-        <div class="flex-1 glass rounded-2xl p-6 flex flex-col relative">
-          <h3 class="font-bold text-lg mb-6">Roadmap Implementasi (Usulan)</h3>
+        <div class="flex-1 glass rounded-3xl p-12 flex flex-col relative stagger-2">
           
           <!-- Timeline Buttons -->
-          <div class="flex justify-between relative z-10 mb-6">
-            <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-700 -z-10 -translate-y-1/2 rounded"></div>
-            <button onclick="showPhase(1)" id="btn-phase-1" class="phase-btn w-10 h-10 rounded-full bg-brand-blue text-white font-bold flex items-center justify-center border-4 border-slate-900 transition-all shadow-[0_0_15px_rgba(22,119,200,0.5)]">1</button>
-            <button onclick="showPhase(2)" id="btn-phase-2" class="phase-btn w-10 h-10 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center justify-center border-4 border-slate-900 transition-all hover:bg-slate-700">2</button>
-            <button onclick="showPhase(3)" id="btn-phase-3" class="phase-btn w-10 h-10 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center justify-center border-4 border-slate-900 transition-all hover:bg-slate-700">3</button>
-            <button onclick="showPhase(4)" id="btn-phase-4" class="phase-btn w-10 h-10 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center justify-center border-4 border-slate-900 transition-all hover:bg-slate-700">4</button>
+          <div class="flex justify-between relative z-10 mb-12 px-10">
+            <div class="absolute top-1/2 left-10 right-10 h-2 bg-slate-700 -z-10 -translate-y-1/2 rounded-full"></div>
+            
+            <button onclick="showPhase(1)" id="btn-phase-1" class="phase-btn w-20 h-20 rounded-full bg-brand-blue text-white font-extrabold text-3xl flex items-center justify-center border-8 border-slate-900 shadow-[0_0_20px_#1677C8] hover:scale-110 transition-transform">1</button>
+            <button onclick="showPhase(2)" id="btn-phase-2" class="phase-btn w-20 h-20 rounded-full bg-slate-800 text-slate-400 font-extrabold text-3xl flex items-center justify-center border-8 border-slate-900 hover:bg-slate-700 hover:scale-110 transition-transform">2</button>
+            <button onclick="showPhase(3)" id="btn-phase-3" class="phase-btn w-20 h-20 rounded-full bg-slate-800 text-slate-400 font-extrabold text-3xl flex items-center justify-center border-8 border-slate-900 hover:bg-slate-700 hover:scale-110 transition-transform">3</button>
+            <button onclick="showPhase(4)" id="btn-phase-4" class="phase-btn w-20 h-20 rounded-full bg-slate-800 text-slate-400 font-extrabold text-3xl flex items-center justify-center border-8 border-slate-900 hover:bg-slate-700 hover:scale-110 transition-transform">4</button>
           </div>
 
           <!-- Phase Contents -->
-          <div class="flex-1 relative">
-            <div id="phase-1" class="phase-content absolute inset-0 animation-fade">
-              <span class="text-brand-blue font-bold tracking-widest text-xs uppercase">Juli - September 2026</span>
-              <h4 class="text-2xl font-bold text-white mb-4">Audit & Planning</h4>
-              <ul class="space-y-3 text-slate-300">
-                <li><i class="fa-solid fa-check text-brand-blue mr-2"></i> Pemetaan infrastruktur jaringan saat ini.</li>
-                <li><i class="fa-solid fa-check text-brand-blue mr-2"></i> Analisis kebutuhan perangkat tiap unit kerja.</li>
-                <li><i class="fa-solid fa-check text-brand-blue mr-2"></i> Desain logika & UI sistem absensi digital.</li>
-                <li><i class="fa-solid fa-check text-brand-blue mr-2"></i> Perencanaan SOP keamanan dan penganggaran.</li>
-              </ul>
+          <div class="flex-1 relative flex items-center justify-center px-10">
+            
+            <div id="phase-1" class="phase-content absolute w-full flex flex-col">
+              <span class="text-brand-blue font-bold tracking-widest text-2xl uppercase mb-4">Jul - Sep 2026</span>
+              <h4 class="text-6xl font-extrabold text-white mb-10">Audit & Perencanaan</h4>
+              <div class="grid grid-cols-2 gap-8 text-3xl text-slate-300">
+                <div class="flex items-center gap-4"><i class="fa-solid fa-check-circle text-brand-blue text-4xl"></i> Pemetaan Infrastruktur</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-check-circle text-brand-blue text-4xl"></i> Analisis Kebutuhan Unit</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-check-circle text-brand-blue text-4xl"></i> Desain Sistem Absensi</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-check-circle text-brand-blue text-4xl"></i> Penyusunan SOP</div>
+              </div>
             </div>
             
-            <div id="phase-2" class="phase-content absolute inset-0 hidden animation-fade">
-              <span class="text-brand-blue font-bold tracking-widest text-xs uppercase">Oktober - Desember 2026</span>
-              <h4 class="text-2xl font-bold text-white mb-4">Early Implementation</h4>
-              <ul class="space-y-3 text-slate-300">
-                <li><i class="fa-solid fa-cog text-brand-green mr-2"></i> Pilot project absensi digital Guru & Tendik.</li>
-                <li><i class="fa-solid fa-cog text-brand-green mr-2"></i> Eksekusi perluasan jaringan area prioritas.</li>
-                <li><i class="fa-solid fa-cog text-brand-green mr-2"></i> Mulai digitalisasi dokumen & persuratan (Tahap 1).</li>
-                <li><i class="fa-solid fa-cog text-brand-green mr-2"></i> Penguatan manajemen perangkat jaringan (Router/Switch).</li>
-              </ul>
+            <div id="phase-2" class="phase-content absolute w-full flex flex-col hidden">
+              <span class="text-brand-green font-bold tracking-widest text-2xl uppercase mb-4">Okt - Des 2026</span>
+              <h4 class="text-6xl font-extrabold text-white mb-10">Implementasi Awal</h4>
+              <div class="grid grid-cols-2 gap-8 text-3xl text-slate-300">
+                <div class="flex items-center gap-4"><i class="fa-solid fa-play text-brand-green text-4xl"></i> Pilot Absensi Guru</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-play text-brand-green text-4xl"></i> Eksekusi Jaringan Prioritas</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-play text-brand-green text-4xl"></i> Digitalisasi Dokumen Dasar</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-play text-brand-green text-4xl"></i> Manajemen Perangkat</div>
+              </div>
             </div>
 
-            <div id="phase-3" class="phase-content absolute inset-0 hidden animation-fade">
-              <span class="text-brand-blue font-bold tracking-widest text-xs uppercase">Januari - Maret 2027</span>
-              <h4 class="text-2xl font-bold text-white mb-4">Digital Integration</h4>
-              <ul class="space-y-3 text-slate-300">
-                <li><i class="fa-solid fa-link text-orange-400 mr-2"></i> Pilot project absensi digital Siswa (Terbatas).</li>
-                <li><i class="fa-solid fa-link text-orange-400 mr-2"></i> Peluncuran Perpustakaan Digital terintegrasi.</li>
-                <li><i class="fa-solid fa-link text-orange-400 mr-2"></i> Pembuatan Dashboard Laporan Manajemen untuk Kepsek.</li>
-                <li><i class="fa-solid fa-link text-orange-400 mr-2"></i> Pelatihan intensif staf tata usaha dan guru.</li>
-              </ul>
+            <div id="phase-3" class="phase-content absolute w-full flex flex-col hidden">
+              <span class="text-orange-400 font-bold tracking-widest text-2xl uppercase mb-4">Jan - Mar 2027</span>
+              <h4 class="text-6xl font-extrabold text-white mb-10">Integrasi Sistem</h4>
+              <div class="grid grid-cols-2 gap-8 text-3xl text-slate-300">
+                <div class="flex items-center gap-4"><i class="fa-solid fa-link text-orange-400 text-4xl"></i> Pilot Absensi Siswa</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-link text-orange-400 text-4xl"></i> Rilis E-Perpustakaan</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-link text-orange-400 text-4xl"></i> Dashboard Kepsek</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-link text-orange-400 text-4xl"></i> Pelatihan Staf Intensif</div>
+              </div>
             </div>
 
-            <div id="phase-4" class="phase-content absolute inset-0 hidden animation-fade">
-              <span class="text-brand-blue font-bold tracking-widest text-xs uppercase">April - Juni 2027</span>
-              <h4 class="text-2xl font-bold text-white mb-4">Optimization & Evaluation</h4>
-              <ul class="space-y-3 text-slate-300">
-                <li><i class="fa-solid fa-chart-line text-purple-400 mr-2"></i> Evaluasi menyeluruh sistem absensi & jaringan.</li>
-                <li><i class="fa-solid fa-chart-line text-purple-400 mr-2"></i> Simulasi pemulihan bencana (Backup & Restore test).</li>
-                <li><i class="fa-solid fa-chart-line text-purple-400 mr-2"></i> Penyusunan Laporan Kinerja ICT 26/27.</li>
-                <li><i class="fa-solid fa-chart-line text-purple-400 mr-2"></i> Rekomendasi master plan tahun berikutnya.</li>
-              </ul>
+            <div id="phase-4" class="phase-content absolute w-full flex flex-col hidden">
+              <span class="text-purple-400 font-bold tracking-widest text-2xl uppercase mb-4">Apr - Jun 2027</span>
+              <h4 class="text-6xl font-extrabold text-white mb-10">Evaluasi & Optimasi</h4>
+              <div class="grid grid-cols-2 gap-8 text-3xl text-slate-300">
+                <div class="flex items-center gap-4"><i class="fa-solid fa-chart-pie text-purple-400 text-4xl"></i> Evaluasi Menyeluruh</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-chart-pie text-purple-400 text-4xl"></i> Uji Backup/Pemulihan</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-chart-pie text-purple-400 text-4xl"></i> Laporan Kinerja Akhir</div>
+                <div class="flex items-center gap-4"><i class="fa-solid fa-chart-pie text-purple-400 text-4xl"></i> Rekomendasi Tahun Depan</div>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
     </section>
 
     <!-- SLIDE 6: TARGET & PENUTUP -->
-    <section class="slide p-6 lg:p-24 pt-24" id="slide-6">
-      <div class="max-w-7xl mx-auto h-full flex flex-col md:flex-row gap-8">
+    <section class="slide" id="slide-6">
+      <div class="h-full flex gap-16 pt-40 px-32 pb-24">
         
-        <!-- Left: Targets -->
-        <div class="flex-1 flex flex-col justify-center">
-          <h2 class="text-3xl lg:text-4xl font-bold mb-8">Target Kinerja (KPI)</h2>
+        <!-- Left: KPI -->
+        <div class="flex-1 flex flex-col justify-center stagger-1">
+          <h2 class="text-6xl font-bold mb-10 text-white border-b-4 border-brand-blue pb-4 w-max">Target Kinerja (KPI)</h2>
           
-          <div class="space-y-4">
-            <div class="glass p-4 rounded-xl flex items-start gap-4 border-l-4 border-brand-blue hover-card">
-              <div class="w-8 h-8 rounded-full bg-brand-blue/20 flex items-center justify-center text-brand-blue font-bold shrink-0">1</div>
+          <div class="space-y-6">
+            <div class="glass-light p-6 rounded-2xl flex items-center gap-6 border-l-8 border-brand-blue">
+              <div class="w-16 h-16 rounded-full bg-brand-blue/20 flex items-center justify-center text-brand-blue font-black text-3xl shrink-0">1</div>
               <div>
-                <h4 class="font-bold text-white">Coverage Internet 100%</h4>
-                <p class="text-sm text-slate-400">Pada area prioritas yang ditetapkan hasil survei.</p>
+                <h4 class="font-bold text-3xl text-white">Coverage Internet 100%</h4>
+                <p class="text-xl text-slate-400">Area prioritas operasional.</p>
               </div>
             </div>
             
-            <div class="glass p-4 rounded-xl flex items-start gap-4 border-l-4 border-brand-green hover-card">
-              <div class="w-8 h-8 rounded-full bg-brand-green/20 flex items-center justify-center text-brand-green font-bold shrink-0">2</div>
+            <div class="glass-light p-6 rounded-2xl flex items-center gap-6 border-l-8 border-brand-green">
+              <div class="w-16 h-16 rounded-full bg-brand-green/20 flex items-center justify-center text-brand-green font-black text-3xl shrink-0">2</div>
               <div>
-                <h4 class="font-bold text-white">Absensi Digital Aktif</h4>
-                <p class="text-sm text-slate-400">Implementasi penuh untuk guru & tendik, pilot untuk siswa.</p>
+                <h4 class="font-bold text-3xl text-white">Absensi Digital Aktif</h4>
+                <p class="text-xl text-slate-400">Beroperasi di atas 80%.</p>
               </div>
             </div>
 
-            <div class="glass p-4 rounded-xl flex items-start gap-4 border-l-4 border-orange-400 hover-card">
-              <div class="w-8 h-8 rounded-full bg-orange-400/20 flex items-center justify-center text-orange-400 font-bold shrink-0">3</div>
+            <div class="glass-light p-6 rounded-2xl flex items-center gap-6 border-l-8 border-orange-400">
+              <div class="w-16 h-16 rounded-full bg-orange-400/20 flex items-center justify-center text-orange-400 font-black text-3xl shrink-0">3</div>
               <div>
-                <h4 class="font-bold text-white">Digitalisasi 4 Unit Kerja</h4>
-                <p class="text-sm text-slate-400">Beralih dari administrasi manual ke layanan berbasis digital.</p>
-              </div>
-            </div>
-
-            <div class="glass p-4 rounded-xl flex items-start gap-4 border-l-4 border-purple-400 hover-card">
-              <div class="w-8 h-8 rounded-full bg-purple-400/20 flex items-center justify-center text-purple-400 font-bold shrink-0">4</div>
-              <div>
-                <h4 class="font-bold text-white">Keamanan & Dukungan</h4>
-                <p class="text-sm text-slate-400">Backup sistem terjadwal & persetujuan kebijakan oleh manajemen.</p>
+                <h4 class="font-bold text-3xl text-white">Digitalisasi 4 Unit</h4>
+                <p class="text-xl text-slate-400">Meninggalkan sistem manual.</p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Right: Closing -->
-        <div class="flex-1 flex flex-col justify-center items-center text-center relative p-8">
-          <div class="absolute inset-0 bg-brand-blue/10 rounded-3xl blur-2xl -z-10"></div>
+        <div class="flex-1 glass rounded-3xl flex flex-col justify-center items-center text-center p-16 stagger-2 relative overflow-hidden">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_var(--tw-gradient-stops))] from-brand-blue/30 via-transparent to-transparent -z-10"></div>
           
-          <i class="fa-solid fa-quote-left text-4xl text-brand-blue/50 mb-4"></i>
-          <p class="text-xl italic text-slate-300 mb-8 max-w-md">
-            "ICT bukan hanya penyedia teknologi, tetapi mitra strategis dalam meningkatkan mutu layanan pendidikan."
-          </p>
+          <i class="fa-solid fa-quote-left text-7xl text-brand-blue/40 mb-8"></i>
           
-          <h3 class="text-2xl lg:text-3xl font-extrabold text-white leading-tight mb-8">
+          <h3 class="text-5xl font-extrabold text-white leading-tight mb-12">
             BERSAMA MEMBANGUN<br>
-            <span class="text-brand-green">SMKN 1 CIKARANG PUSAT</span><br>
-            YANG TERHUBUNG, TERINTEGRASI & INOVATIF.
+            <span class="text-brand-green text-6xl block mt-4 drop-shadow-[0_0_15px_rgba(22,160,133,0.5)]">SMKN 1 CIKARANG PUSAT</span><br>
+            <span class="text-4xl">TERHUBUNG, TERINTEGRASI, INOVATIF.</span>
           </h3>
           
-          <p class="text-sm font-bold tracking-[0.2em] text-brand-blue uppercase mb-2">TIM ICT SEKOLAH</p>
-          <p class="text-xs text-slate-500">TAHUN PELAJARAN 2026/2027</p>
+          <div class="border-t-2 border-slate-600 pt-8 w-full">
+            <p class="text-2xl font-bold tracking-[0.3em] text-brand-blue uppercase mb-2">TIM ICT SEKOLAH</p>
+            <p class="text-xl text-slate-400">TAHUN PELAJARAN 2026/2027</p>
+          </div>
           
-          <button onclick="goToSlide(0)" class="mt-12 px-6 py-2 border border-slate-600 rounded-full text-sm hover:bg-white/5 transition-colors">
-            <i class="fa-solid fa-rotate-left mr-2"></i> Kembali ke Awal
+          <button onclick="goToSlide(0)" class="mt-12 px-8 py-4 border-2 border-slate-500 rounded-full text-xl hover:bg-white/10 transition-colors flex items-center gap-3">
+            <i class="fa-solid fa-rotate-left"></i> Kembali ke Awal
           </button>
         </div>
       </div>
     </section>
 
-    <!-- Navigation Controls -->
-    <div class="absolute bottom-6 left-0 w-full flex justify-between items-center px-6 lg:px-12 z-50 pointer-events-none">
+    <!-- Navigation Controls (Bottom Right) -->
+    <div class="absolute bottom-12 right-12 flex items-center gap-8 z-50">
       <!-- Dots -->
-      <div class="flex gap-2 pointer-events-auto bg-black/40 p-2 rounded-full backdrop-blur-sm border border-white/10" id="nav-dots">
-        <button class="dot w-2.5 h-2.5 rounded-full bg-brand-blue transition-all shadow-[0_0_8px_#1677C8]" onclick="goToSlide(0)"></button>
-        <button class="dot w-2.5 h-2.5 rounded-full bg-slate-600 hover:bg-slate-400 transition-all" onclick="goToSlide(1)"></button>
-        <button class="dot w-2.5 h-2.5 rounded-full bg-slate-600 hover:bg-slate-400 transition-all" onclick="goToSlide(2)"></button>
-        <button class="dot w-2.5 h-2.5 rounded-full bg-slate-600 hover:bg-slate-400 transition-all" onclick="goToSlide(3)"></button>
-        <button class="dot w-2.5 h-2.5 rounded-full bg-slate-600 hover:bg-slate-400 transition-all" onclick="goToSlide(4)"></button>
-        <button class="dot w-2.5 h-2.5 rounded-full bg-slate-600 hover:bg-slate-400 transition-all" onclick="goToSlide(5)"></button>
+      <div class="flex gap-4 bg-black/60 p-4 rounded-full backdrop-blur-md border border-white/20">
+        <button class="dot w-4 h-4 rounded-full bg-brand-blue transition-all shadow-[0_0_10px_#1677C8]" onclick="goToSlide(0)"></button>
+        <button class="dot w-4 h-4 rounded-full bg-slate-600 hover:bg-slate-400 transition-all" onclick="goToSlide(1)"></button>
+        <button class="dot w-4 h-4 rounded-full bg-slate-600 hover:bg-slate-400 transition-all" onclick="goToSlide(2)"></button>
+        <button class="dot w-4 h-4 rounded-full bg-slate-600 hover:bg-slate-400 transition-all" onclick="goToSlide(3)"></button>
+        <button class="dot w-4 h-4 rounded-full bg-slate-600 hover:bg-slate-400 transition-all" onclick="goToSlide(4)"></button>
+        <button class="dot w-4 h-4 rounded-full bg-slate-600 hover:bg-slate-400 transition-all" onclick="goToSlide(5)"></button>
       </div>
 
       <!-- Arrows -->
-      <div class="flex gap-4 pointer-events-auto">
-        <button onclick="prevSlide()" id="btn-prev" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md flex items-center justify-center transition-all disabled:opacity-30 border border-white/10" disabled>
+      <div class="flex gap-4">
+        <button onclick="prevSlide()" id="btn-prev" class="w-16 h-16 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md flex items-center justify-center transition-all disabled:opacity-30 border border-white/20 text-2xl">
           <i class="fa-solid fa-chevron-left"></i>
         </button>
-        <button onclick="nextSlide()" id="btn-next" class="w-10 h-10 rounded-full bg-brand-blue hover:bg-blue-600 flex items-center justify-center transition-all shadow-lg shadow-blue-900/50">
-          <i class="fa-solid fa-chevron-right"></i>
+        <button onclick="nextSlide()" id="btn-next" class="w-16 h-16 rounded-full bg-brand-blue hover:bg-blue-600 flex items-center justify-center transition-all shadow-[0_0_20px_rgba(22,119,200,0.6)] text-2xl">
+          <i class="fa-solid fa-chevron-right text-white"></i>
         </button>
       </div>
     </div>
 
-  </main>
+  </div> <!-- End 16:9 Wrapper -->
 
   <!-- JS Logic -->
   <script>
-    // SLIDE NAVIGATION
+    // --- 16:9 SCALING LOGIC ---
+    function adjustScale() {
+      const wrapper = document.getElementById('presentation-wrapper');
+      const targetRatio = 1920 / 1080;
+      const windowRatio = window.innerWidth / window.innerHeight;
+      let scale;
+      
+      if (windowRatio < targetRatio) {
+        scale = window.innerWidth / 1920; // Fit width
+      } else {
+        scale = window.innerHeight / 1080; // Fit height
+      }
+      
+      wrapper.style.transform = `scale(${scale})`;
+    }
+    
+    window.addEventListener('resize', adjustScale);
+    adjustScale(); // Initial call
+
+    // --- SLIDE NAVIGATION ---
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
@@ -557,25 +524,25 @@
           slide.classList.add('active');
         } else {
           slide.classList.remove('active');
+          // Reset transform for re-entry animation
+          slide.style.transform = index < currentSlide ? 'translateX(-100px)' : 'translateX(100px)';
         }
       });
 
       dots.forEach((dot, index) => {
         if(index === currentSlide) {
-          dot.className = 'dot w-6 h-2.5 rounded-full bg-brand-blue transition-all shadow-[0_0_8px_#1677C8]';
+          dot.className = 'dot w-10 h-4 rounded-full bg-brand-blue transition-all shadow-[0_0_10px_#1677C8]';
         } else {
-          dot.className = 'dot w-2.5 h-2.5 rounded-full bg-slate-600 hover:bg-slate-400 transition-all';
+          dot.className = 'dot w-4 h-4 rounded-full bg-slate-600 hover:bg-slate-400 transition-all';
         }
       });
 
       btnPrev.disabled = currentSlide === 0;
-      btnNext.disabled = currentSlide === slides.length - 1;
       
-      // Hide next button on last slide
       if(currentSlide === slides.length - 1) {
-         btnNext.classList.add('hidden');
+         btnNext.classList.add('btn-hidden');
       } else {
-         btnNext.classList.remove('hidden');
+         btnNext.classList.remove('btn-hidden');
       }
     }
 
@@ -598,79 +565,69 @@
       updateNav();
     }
 
-    // Keyboard Navigation
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
       if (e.key === 'ArrowLeft') prevSlide();
     });
 
-    // Touch Swipe Navigation
-    let touchStartX = 0;
-    let touchEndX = 0;
-    document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, false);
-    document.addEventListener('touchend', e => { 
-      touchEndX = e.changedTouches[0].screenX; 
-      handleSwipe();
-    }, false);
-
-    function handleSwipe() {
-      if (touchEndX < touchStartX - 50) nextSlide();
-      if (touchEndX > touchStartX + 50) prevSlide();
-    }
-
-    // TABS LOGIC (Slide 3)
+    // --- TABS LOGIC (Slide 3) ---
     function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.getElementById(tabId).classList.remove('hidden');
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.add('hidden');
+        el.style.opacity = '0';
+      });
+      
+      const target = document.getElementById(tabId);
+      target.classList.remove('hidden');
+      setTimeout(() => target.style.opacity = '1', 50); // fade trick
       
       const btns = ['btn-tab-capaian', 'btn-tab-evaluasi', 'btn-tab-organisasi'];
       btns.forEach(btn => {
-        const el = document.getElementById(btn);
-        el.className = 'flex-1 md:flex-none px-4 py-2 rounded-md text-slate-300 hover:text-white font-semibold text-sm transition-all';
+        document.getElementById(btn).className = 'px-8 py-4 rounded-xl text-slate-300 hover:text-white font-bold text-xl transition-all';
       });
       
-      const activeBtn = document.getElementById('btn-' + tabId);
-      activeBtn.className = 'flex-1 md:flex-none px-4 py-2 rounded-md bg-brand-blue text-white font-semibold text-sm transition-all';
+      document.getElementById('btn-' + tabId).className = 'px-8 py-4 rounded-xl bg-brand-blue text-white font-bold text-xl transition-all shadow-lg';
     }
 
-    // TIMELINE LOGIC (Slide 5)
+    // --- TIMELINE LOGIC (Slide 5) ---
     function showPhase(phaseNum) {
-      document.querySelectorAll('.phase-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.phase-content').forEach(el => {
+        el.classList.add('hidden');
+      });
       document.getElementById('phase-' + phaseNum).classList.remove('hidden');
       
       document.querySelectorAll('.phase-btn').forEach(btn => {
-        btn.className = 'phase-btn w-10 h-10 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center justify-center border-4 border-slate-900 transition-all hover:bg-slate-700';
+        btn.className = 'phase-btn w-20 h-20 rounded-full bg-slate-800 text-slate-400 font-extrabold text-3xl flex items-center justify-center border-8 border-slate-900 hover:bg-slate-700 hover:scale-110 transition-transform';
       });
       
-      const activeBtn = document.getElementById('btn-phase-' + phaseNum);
-      activeBtn.className = 'phase-btn w-10 h-10 rounded-full bg-brand-blue text-white font-bold flex items-center justify-center border-4 border-slate-900 transition-all shadow-[0_0_15px_rgba(22,119,200,0.5)]';
+      document.getElementById('btn-phase-' + phaseNum).className = 'phase-btn w-20 h-20 rounded-full bg-brand-blue text-white font-extrabold text-3xl flex items-center justify-center border-8 border-slate-900 shadow-[0_0_20px_#1677C8] scale-110 transition-transform';
     }
 
-    // ECOSYSTEM HIGHLIGHT LOGIC (Slide 4)
+    // --- ECOSYSTEM HIGHLIGHT LOGIC (Slide 4) ---
     function highlightEcosystem(type) {
       const items = document.querySelectorAll('.eco-item');
       items.forEach(item => {
-        item.style.opacity = '0.3';
-        item.style.borderColor = '#334155'; // slate-700
+        item.style.opacity = '0.2';
+        item.style.borderColor = '#475569'; // slate-600
         
         if(type === 'all' || item.classList.contains(type)) {
           item.style.opacity = '1';
           if(type === 'absensi') item.style.borderColor = '#1677C8';
           else if(type === 'admin') item.style.borderColor = '#16A085';
-          else if(type === 'network') item.style.borderColor = '#fb923c'; // orange
-          else item.style.borderColor = '#a78bfa'; // purple for all
+          else if(type === 'network') item.style.borderColor = '#fb923c';
+          else item.style.borderColor = '#a78bfa';
         }
       });
       
-      // Reset after 3 seconds
       clearTimeout(window.highlightTimeout);
       window.highlightTimeout = setTimeout(() => {
         items.forEach(item => {
           item.style.opacity = '1';
-          item.style.borderColor = '#334155';
+          item.style.borderColor = '#475569';
         });
       }, 3000);
     }
   </script>
 </body>
 </html>
+```
